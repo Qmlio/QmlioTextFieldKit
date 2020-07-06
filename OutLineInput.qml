@@ -18,279 +18,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
 */
+
+
 import QtQuick 2.11
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
-
-/*!
-   \qmltype OutLineInput
-   \brief A customized TextField control
-
-   OutLineInput extends standard \l {http://doc.qt.io/qt-5/}
-   {TextField} by adding the new Material design look. Its mainly driven by changing of states  to achieve an desired look and design.
-
-\div {class="flow-row"}
-
-  \div {class=" row-child screen-shot-Example"}
-\image outlinegiff.gif
- \enddiv
-
-\enddiv
-
-
-
-\section1 Example Usage
-   \qml
-import QtQuick 2.9
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
-
-Window {
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("Qmlio Controls")
-
-            OutLineInput {
-                id: outLineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter your full names"
-
-            }
-        }
-
-   \endqml
-
- \section1 Control States
-   OutLineInput contains mainly five states.
-
-
-    \div {class="more-list-container"}
-
-   \list
-
-     \li \div {class="list-section"}
-
-     \section2 Empty state
-     Thi is the default state of the control.
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image default.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 Active state
-     This state is triggered when the control is clicked / tapped (on Mobile) ie when focus is true and when the \l {http://doc.qt.io/qt-5/}
-   {TextField::enabled} property is set to true.
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image active.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 Passive
-     This state is triggered when the control  focus is false  and when \l {http://doc.qt.io/qt-5/}
-   {TextField::enabled} property  is set to false.
-
-\div {class="flow-row"}
-
-  \div {class=" row-child image-Example"}
-\image passive.png
- \enddiv
-\enddiv
-
- \enddiv
-
-     \li \div {class="list-section"}
-
-     \section2 Error state
-     This state is triggered when the control input is invalid.This is set manually by setting OutLineInput::isError property to true.
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image error.png
- \enddiv
-\enddiv
-
-   \qml
-            OutLineInput {
-                id: outLineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter name"
-                onTextEdited: {
-                    if (text == "invalid") {
-                        isError = true
-                    } else {
-                        isError = false
-                    }
-                }
-            }
-            \endqml
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 PassiveError state
-     This state is a combination of \b Error \b State and \b Passive \b state and is triggered when the input is invalid and focus is false .
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image passiveError.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-
-\endlist
- \enddiv
-
-
-
-
-  \div {class="divider"}
-
- \enddiv
-
-
-*/
 TextField {
     id: field
-    /*!
 
-    This property holds the color of the control in the passive state.
-    */
     property color passiveColor: "#bdbdbd"
-    /*!
 
-    This property holds the color of the helperText of the control in the error state.
-    */
     property color errorColor: "red"
-    /*!
-    This property holds the text to be displayed as an error .
-    */
+
     property string errorText: "Error!"
 
-    /*!
-    This property holds whether the input is an invalid and will trigger the error state automatically.
-    */
     property bool isError: false
 
-    /*!
-    This property holds the text to be displayed as helper text for the control.
-
-  \div {class="image-Example"}
-\image outlinewithHelp.png
- \enddiv
-
-   \qml
-            OutLineInput {
-                id: outLineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                helperColor: "green"
-                hasHelper: true
-                helperText: "Enter your full names"
-
-            }
-
-   \endqml
-
-    */
     property string helperText: ""
 
-    /*!
-    This property holds whether the input is contains only numeric values .
-    */
     property bool isNumber: false
 
-    /*!
-    This property holds the color of the helperText of the control in the active state. In the passive state, the helper text will take up the OutLineInput::passiveColor.
-    The default color is green
-    */
     property color helperColor: "green"
 
-    /*!
-    This property holds the internal \l {http://doc.qt.io/qt-5/}
-   {Text Item} for  displaying  an error icon of the control.
-    */
     property alias errorIconText: errorIcon
 
-    /*!
-    This property holds whether the control has helper text. The default value is false.
-    */
     property bool hasHelper: false
-    /*!
-    This property holds the current state of the control.
-    */
+
     readonly property string currentControlState: field.state
 
-    /*!
-    This property holds whether the input is an email .
-    */
     property bool isEmail: true
 
-    /*!
-    This property holds whether the input is a password.
-    */
     property bool isPassword: false
 
-    /*!
-    This property holds the  initial text to be displayed of the control.
-
-
-  \div {class="image-Example"}
-\image outlinewithValue.png
- \enddiv
-
-
-\qml
-            OutLineInput {
-                id: outLineInput
-                width: 250
-                placeholderText: "Post"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                value: "Manager"
-                helperText: "Change your post"
-
-            }
-
-   \endqml
-    */
     property string value: field.text
 
-    /*!
-    This property holds internal \l {http://doc.qt.io/qt-5/}
-   {TextField} of the control .
-    */
     property alias textfield: field
 
     width: dp(150)

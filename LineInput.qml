@@ -22,284 +22,46 @@ import QtQuick 2.11
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
-
-/*!
-   \qmltype LineInput
-   \brief A customized TextField control
-
-
-   LineInput extends standard \l {http://doc.qt.io/qt-5/}
-   {TextField} by adding a new Material design look. Its mainly driven by changing of states  to achieve an desired look and design.:
-
-\div {class="flow-row"}
-
-  \div {class=" row-child image-Example"}
-\image linegiff.gif
- \enddiv
-
-\enddiv
-
-
-
-
-   \qml
-import QtQuick 2.9
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
-
-Window {
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("Qmlio Controls")
-
-          LineInput {
-                id: lineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter your full names"
-
-            }
-        }
-
-   \endqml
-
- \section1 Control States
-    It contains mainly five states.
-
-    \div {class="more-list-container"}
-
-   \list
-
-     \li \div {class="list-section"}
-
-     \section2 Empty state
-     This is the default state of the control.
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image lineDefault.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 Active state
-     This state is triggered when the control is clicked / tapped (on Mobile) ie when focus is true and when the \l {http://doc.qt.io/qt-5/}
-   {TextField::enabled} property is set to true.
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image lineActive.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 Passive
-     This state is triggered when the control  focus is false  and when \l {http://doc.qt.io/qt-5/}
-   {TextField::enabled} property  is set to false.
-
-\div {class="flow-row"}
-
-  \div {class=" row-child image-Example"}
-\image linePassive.png
- \enddiv
-\enddiv
-
- \enddiv
-
-     \li \div {class="list-section"}
-
-     \section2 Error state
-     This state is triggered when the control input is invalid.This is set manually by setting OutLineInput::isError property to true.
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image lineError.png
- \enddiv
-\enddiv
-
-   \qml
-           LineInput {
-                id: lineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter name"
-
-            }
-            \endqml
-
- \enddiv
-
-
-     \li \div {class="list-section"}
-
-     \section2 PassiveError state
-     This state is a combination of \b Error \b State and \b Passive \b state and is triggered when the input is invalid and focus is false .
-
-
-\div {class="flow-row"}
-  \div {class=" row-child image-Example"}
-\image linePassiveError.png
- \enddiv
-\enddiv
-
- \enddiv
-
-
-
-\endlist
- \enddiv
-
-
-
-
-  \div {class="divider"}
-
- \enddiv
-
-
-
-
-*/
 TextField {
     id: field
-    width: implicitWidth
-    height: dp(56)
 
-    /*!
-    This property holds the text to be displayed as an error .
-    */
     property string errorText: "Error!"
 
-    /*!
-    This property holds whether the control has helper text. The default value is false.
-    */
     property bool hasHelper: false
 
-    /*!
-    This property holds the current state of the control.
-    */
     readonly property string currentControlState: field.state
 
-    /*!
-    This property holds the internal \l {http://doc.qt.io/qt-5/}
-   {Text Item} for  displaying  an error icon of the control.
-    */
     property alias errorIconText: errorIcon
 
-    /*!
-    This property holds the text to be displayed as helper text for the control.
-
-
-  \div {class="image-Example"}
-\image linewithHelp.png
- \enddiv
-
-   \qml
-   LineInput {
-    id: lineInput
-    color: "gray"
-    width: parent.width
-    hasHelper: true
-     helperColor: "green"
-    helperText: "Enter your full names"
-    placeholderText: "Name"
-
-   }
-
-   \endqml
-
-    */
     property string helperText: ""
 
-    /*!
-    This property holds the color of the helperText of the control in the active state. In the passive state, the helper text will take up the OutLineInput::passiveColor.
-    The default color is green
-    */
     property color helperColor: "green"
 
-    /*!
-    This property holds the color of the helperText of the control in the error state.
-    */
     property color errorColor: "red"
 
-    /*!
-    This property holds whether the input is contains only numeric values .
-    */
     property bool isNumber: false
 
-    /*!
-    This property holds whether the input is an email .
-    */
     property bool isEmail: true
 
-    /*!
-    This property holds whether the input is a password.
-    */
     property bool isPassword: false
 
-    /*!
-    This property holds internal \l {http://doc.qt.io/qt-5/}
-   {TextField} of the control .
-    */
     property alias textfield: field
 
-    /*!
-    This property holds the  initial text to be displayed of the control.
-
-  \div {class="image-Example"}
-\image linewithValue.png
- \enddiv
-
-
- \qml
-            LineInput {
-                id: lineInput
-                helperColor: "gray"
-                Material.accent: "blue"
-                width: 250
-                value: "Manager"
-                hasHelper: true
-                placeholderText: "Post"
-                helperText: "Change your post"
-            }
-
-   \endqml
-    */
     property string value: field.text
 
-    /*!
-    This property holds the color of the control during the passive state .
-    */
     property color passiveColor: "#bdbdbd"
 
-    /*!
-    This property holds whether the input is an invalid.
-    */
     property bool isError: false
 
+    width: implicitWidth
+    height: dp(56)
     clip: false
     echoMode: isPassword == true ? TextInput.Password : TextInput.Normal
     onValueChanged: {
 
         field.text = value
         if (field.text.length == 0) {
-            console.log("valu is cnhage ")
+
             field.state = ""
         } else {
 
@@ -334,7 +96,7 @@ TextField {
         }
     }
     font.family: "arial"
-    placeholderText: ""
+    placeholderText: "Label"
     onFocusChanged: {
         if (focus) {
             if (state == "passiveError")
@@ -362,7 +124,6 @@ TextField {
         id: iconContainer
         width: height
         height: dp(24)
-
         radius: width / 2
         scale: 0.85
         opacity: 0
@@ -375,6 +136,7 @@ TextField {
             else
                 visible = false
         }
+
         x: parent.width - (width + field.rightPadding)
         y: parent.height / 2 - height / 2
         MouseArea {
@@ -415,7 +177,7 @@ TextField {
                 height: pl.implicitHeight
                 x: field.leftPadding
                 y: field.height / 2 - height / 2
-                //color: "red"
+
                 Text {
 
                     property real size: 1
@@ -472,7 +234,6 @@ TextField {
             PropertyChanges {
                 target: placeHolderRec
                 y: dp(4)
-                //x: dp()
             }
 
             PropertyChanges {
@@ -486,7 +247,6 @@ TextField {
                 padding: -dp(2)
                 size: 0.7
                 x: -(width / 6)
-                //x:-((placeHolderRec.width/8))
             }
         },
 
@@ -495,7 +255,6 @@ TextField {
             PropertyChanges {
                 target: placeHolderRec
                 y: dp(4)
-                // x: dp(8)
             }
             PropertyChanges {
                 target: field
@@ -510,7 +269,6 @@ TextField {
                 size: 0.7
                 padding: -dp(2)
                 x: -(width / 6)
-                //x:-((placeHolderRec.width/8))
             }
         },
         State {
@@ -577,7 +335,6 @@ TextField {
             PropertyChanges {
                 target: placeHolderRec
                 y: dp(4)
-                // x: dp(8)
             }
             PropertyChanges {
                 target: iconContainer

@@ -1,113 +1,80 @@
+/* Copyright (c) 2020 Qmlio
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
 
 Window {
     visible: true
     width: 640
-    height: 480
-    title: qsTr("Hello World")
-
-    Rectangle {
-        width: col.width
-        height: col.height
-        anchors.centerIn: parent
-        Column {
-            id: col
-            spacing: 48
-
-            LineInput {
-                id: lineInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter name"
-            }
-            LineInput {
-                id: lineInputa
-                width: 250
-                placeholderText: "Disabled"
-                Material.accent: "blue"
-                hasHelper: true
-                enabled: false
-                value: "Qt Developer"
-                helperColor: "gray"
-                helperText: "Post"
-            }
-
-            OutLineInput {
-                id: outLineInput
-                width: 250
-                visible: false
-                placeholderText: "Post"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                value: "Manager"
-                helperText: "Change your post"
-            }
-
-            LineInput {
-                opacity: 0
-                visible: false
-                id: outLisneInput
-                width: 250
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter name"
-
-                onTextEdited: {
-                    if (text == "invalid") {
-                        isError = true
-                    } else {
-
-                        isError = false
-                    }
+    height: 580
+    title: qsTr("Qmlio Controls")
+    TabBar {
+        id: tabs
+        z: 1
+        width: parent.width
+        currentIndex: swipe.currentIndex
+        Repeater {
+            model: ListModel {
+                Component.onCompleted: {
+                    append({
+                               name: "OutlineInput"
+                           })
+                    append({
+                               name: "LineInput"
+                           })
                 }
             }
-            OutLineInput {
-                id: oustLineInput
-                width: 250
-                opacity: 1
-
-                placeholderText: "Name"
-                Material.accent: "blue"
-                hasHelper: true
-                helperColor: "gray"
-                helperText: "Enter name"
-                onTextEdited: {
-                    if (text == "invalid") {
-                        isError = true
-                    } else {
-
-                        //state = "active"
-                        isError = false
-                    }
-                }
-            }
-
-            OutLineInput {
-                id: wa
-                width: 250
-                opacity: 0
-                placeholderText: "Disabled"
-                enabled: false
-                value: "Qt Developer"
-                Material.accent: "blue"
-                hasHelper: true
-                helperText: "Post"
+            delegate: TabButton {
+                text: model.name
             }
         }
     }
+    SwipeView {
+        id: swipe
+        anchors.fill: parent
+        currentIndex: tabs.currentIndex
+        OutlineInputPage {
+        }
+
+        LineInputPage {
+        }
+    }
+
     function dp(val) {
+        if (Qt.platform.os == "android") {
+
+
+            /* FIX ME */
+        }
+
         return val
     }
+
     function sp(val) {
+        if (Qt.platform.os == "android") {
+
+
+            /* FIX ME */
+        }
         return val
     }
 }

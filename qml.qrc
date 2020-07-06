@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>LineInput.qml</file>
         <file>OutLineInput.qml</file>
+        <file>OutlineInputPage.qml</file>
+        <file>LineInputPage.qml</file>
     </qresource>
 </RCC>
